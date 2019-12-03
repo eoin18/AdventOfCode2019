@@ -84,14 +84,16 @@ func main()  {
 	grid = make(map[Vertex]Node)
 	scanner := bufio.NewScanner(file)
 	var i uint = 1
+	var j uint = 1
 	for scanner.Scan() {
 		input := strings.Split(scanner.Text(), ",")
 		run_path(Vertex{X:0, Y:0}, input, grid, i)
-		i++
+		j = j | i
+		i = i << 1
 	}
 	shortest := 0
 	for _,v := range grid {
-		if v.Visitors == 3 {
+		if v.Visitors == j {
 			//dist := manhattan_distance(Vertex{X:0, Y:0}, k)
 			steps := v.Steps
 			if shortest == 0 || steps < shortest {
